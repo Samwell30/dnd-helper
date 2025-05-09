@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Landing from "./components/Landing";
+import SpellsList from "./pages/Spells";
+import Monsters from "./pages/Monsters";
+import Nav from "./components/Nav";
+import About from "./pages/About";
+import SpellDetails from "./pages/SpellDetails";
+import MonsterDetail from "./pages/MonsterDetail";
+
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav/>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/spells" element={<SpellsList />} />
+        <Route path="/spells/:spellIndex" element={<SpellDetails />} />
+        <Route path="/monsters" element={<Monsters />} />
+        <Route path="/monsters/:monsterIndex" element={<MonsterDetail />} />
+      </Routes>
     </div>
+    </BrowserRouter>
   );
 }
 
