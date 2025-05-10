@@ -11,7 +11,7 @@ import MonsterDetail from "./pages/MonsterDetail";
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
+    <div id="app">
       <Nav/>
       <Routes>
         <Route path="/" element={<Landing />} />

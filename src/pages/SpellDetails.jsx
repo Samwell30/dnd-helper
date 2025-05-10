@@ -6,23 +6,24 @@ const SpellDetails = () => {
   const { spellIndex } = useParams(); // Get the spell index from the URL
   const [spell, setSpell] = useState(null);
 
-  useEffect(() => {
-    axios.get(`https://www.dnd5eapi.co/api/spells/${spellIndex}`)
-      .then(response => {
-        setSpell(response.data); // Set the spell details
-      })
-      .catch(error => {
-        console.error('Error fetching spell details:', error);
-      });
-  }, [spellIndex]);
-
-  if (!spell) {
-    return <div>Loading...</div>; // Show a loading message while fetching data
+  async function fetchSpells() {
+    const { data } = await axios.get(
+      `https://www.dnd5eapi.co/api/spells/${spellIndex}`
+    );
+    setSpell(data);
   }
 
+  useEffect(() => {
+    fetchSpells();
+  }, []);
+
+  if (!spell) {
+    return <div className="loading__container">Loading...</div>; 
+  }
+  
   return (
-    <div className='detail-page'>
-      <h1>{spell.name} --- <span className='red'>Spell level</span> {spell.level}</h1>
+    <div className='detail__page'>
+      <h1>{spell.name} <span> --- Spell level</span> {spell.level}</h1>
       <p><strong>Description:</strong> {spell.desc?.join(' ')}</p>
       <p><strong>Range:</strong> {spell.range}</p>
       <p><strong>Duration:</strong> {spell.duration}</p>

@@ -6,19 +6,27 @@ const MonsterDetail = () => {
   const { monsterIndex } = useParams(); // Get the monster index from the URL
   const [monster, setMonster] = useState(null);
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://www.dnd5eapi.co/api/monsters/${monsterIndex}`)
+  //     .then((response) => {
+  //       setMonster(response.data); // Set the monster details
+  //     })
+  // }, [monsterIndex]);
+
+  async function fetchMonster() {
+    const { data } = await axios.get(
+      `https://www.dnd5eapi.co/api/monsters/${monsterIndex}`
+    );
+    setMonster(data);
+  }
+
   useEffect(() => {
-    axios
-      .get(`https://www.dnd5eapi.co/api/monsters/${monsterIndex}`)
-      .then((response) => {
-        setMonster(response.data); // Set the monster details
-      })
-      .catch((error) => {
-        console.error("Error fetching monster details:", error);
-      });
-  }, [monsterIndex]);
+    fetchMonster();
+  }, []);
 
   if (!monster) {
-    return <div className="loading-container">Loading...</div>; // Show a loading message while fetching data
+    return <div className="loading__container">Loading...</div>; // Show a loading message while fetching data
   }
 
   const renderSpeed = () => {
@@ -31,7 +39,7 @@ const MonsterDetail = () => {
   };
 
   return (
-    <div className="detail-page">
+    <div className="detail__page">
 
       <h1>{monster.name}</h1>
       <p>
@@ -55,7 +63,7 @@ const MonsterDetail = () => {
           <ul>
             {monster.actions.map((action, index) => (
               <li key={index}>
-                <strong>{action.name}:</strong> {action.desc}
+                <strong><span>{action.name}</span>:</strong> {action.desc}
               </li>
             ))}
           </ul>

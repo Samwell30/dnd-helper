@@ -1,26 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function SpellsList() {
+const SpellsList = () => {
   const [spells, setSpells] = useState([]);
-  const [searchSpell, setSearchSpell] = useState('');
-  const [searchLevel, setSearchLevel] = useState('');
-  const navigate = useNavigate(); 
+  const [searchSpell, setSearchSpell] = useState("");
+  const [searchLevel, setSearchLevel] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  async function fetchSpells() {
+    setIsLoading(true); // Set loading state
+    const { data } = await axios.get(
+      "https://www.dnd5eapi.co/api/spells"
+    );
+    setSpells(data.results);
+    setIsLoading(false); // Ensure loading state is updated
+  }
 
   useEffect(() => {
-    axios.get('https://www.dnd5eapi.co/api/spells')
-      .then(response => {
-        setSpells(response.data.results);
-      })
-      .catch(error => {
-        console.error('Error fetching spells:', error);
-      });
+    fetchSpells();
   }, []);
 
-  const filteredSpells = spells.filter(spell => {
-    const spellList = spell.name.toLowerCase().includes(searchSpell.toLowerCase());
-    const spellLevel = searchLevel === '' || spell.level === parseInt(searchLevel); // Match level if provided
+  const filteredSpells = spells.filter((spell) => {
+    const spellList = spell.name
+      .toLowerCase()
+      .includes(searchSpell.toLowerCase());
+    const spellLevel =
+      searchLevel === "" || spell.level === parseInt(searchLevel, 10); // Include all spells if searchLevel is empty
     return spellList && spellLevel;
   });
 
@@ -31,7 +38,7 @@ function SpellsList() {
         Type a keyword (e.g., "fire") or search by spell level.
         <br /> Scroll to explore all spells.
       </p>
-      <div className="input-container">
+      <div className="input__container">
         <input
           type="text"
           placeholder="Search spells..."
@@ -42,21 +49,31 @@ function SpellsList() {
           type="number"
           placeholder="Search spells by level..."
           value={searchLevel}
-          onChange={(e) => setSearchLevel(e.target.value)}
-        />
+          onChange={(e) => {
+            const value = e.target.value;
+            setSearchLevel(
+              value === "" ? "" : Math.min(9, Math.max(0, parseInt(value, 10)))
+            );
+          }}
+        />{" "}
       </div>
-      <ul>
-      {filteredSpells.map((spell) => (
-    <li
-      className="list-item"
-      key={spell.index}
-      onClick={() => navigate(`/spells/${spell.index}`)} // Navigate on click
-    >
-      {spell.name}
-    </li>
-  ))}
-</ul>    </div>
+      {isLoading ? (
+        <p>Loading spells...</p>
+      ) : (
+        <ul>
+          {filteredSpells.map((spell) => (
+            <li
+              className="list__item"
+              key={spell.index}
+              onClick={() => navigate(`/spells/${spell.index}`)} // Navigate on click
+            >
+              {spell.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
-}
+};
 
 export default SpellsList;

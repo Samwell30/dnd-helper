@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Landing() {
   return (
-    <div className="landing">
+    <div id="landing">
       <div className="hero">
         <h1 className="hero__title">Welcome to the D<span className="red">&</span>D Helper</h1>
         <p className="hero__subtitle">

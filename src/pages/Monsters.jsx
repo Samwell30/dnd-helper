@@ -1,39 +1,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 
 function Monsters() {
   const [monsters, setMonsters] = useState([]);
   const [searchMonster, setSearchMonster] = useState("");
   const [searchBySize, setSearchBySize] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the initial list of monsters
-    axios
-      .get("https://www.dnd5eapi.co/api/monsters")
-      .then((response) => {
-        const monsterSummaries = response.data.results;
+    axios.get("https://www.dnd5eapi.co/api/monsters").then((response) => {
+      const monsterSummaries = response.data.results;
 
-        // Fetch detailed data for each monster
-        const fetchDetails = monsterSummaries.map((monster) =>
-          axios
-            .get(`https://www.dnd5eapi.co${monster.url}`)
-            .then((res) => res.data)
-        );
+      const fetchDetails = monsterSummaries.map((monster) =>
+        axios
+          .get(`https://www.dnd5eapi.co${monster.url}`)
+          .then((res) => res.data)
+      );
 
-        Promise.all(fetchDetails).then((detailedMonsters) => {
-          console.log("Detailed Monsters:", detailedMonsters); // Log detailed monster data
-          setMonsters(detailedMonsters);
-          setIsLoading(false); // Set loading to false after data is fetched
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching monsters:", error);
-        setIsLoading(false); // Set loading to false even if there's an error
+      Promise.all(fetchDetails).then((detailedMonsters) => {
+        console.log("Detailed Monsters:", detailedMonsters);
+        setMonsters(detailedMonsters);
+        setIsLoading(false);
       });
+    });
+    setIsLoading(true);
   }, []);
 
   const filteredMonsters = monsters.filter((monster) => {
@@ -53,7 +45,7 @@ function Monsters() {
         Type a keyword (e.g., "dragon") or filter by size.
         <br /> Scroll to explore all monsters.
       </p>
-      <div className="input-container">
+      <div className="input__container">
         <input
           type="text"
           placeholder="Search monsters..."
@@ -76,17 +68,18 @@ function Monsters() {
       {isLoading ? ( // Show loading message while data is being fetched
         <p>Loading monsters...</p>
       ) : (
-<ul>
-  {filteredMonsters.map((monster) => (
-    <li
-      className="list-item"
-      key={monster.index}
-      onClick={() => navigate(`/monsters/${monster.index}`)} // Navigate on click
-    >
-      {monster.name}
-    </li>
-  ))}
-</ul>      )}
+        <ul>
+          {filteredMonsters.map((monster) => (
+            <li
+              className="list__item"
+              key={monster.index}
+              onClick={() => navigate(`/monsters/${monster.index}`)} // Navigate on click
+            >
+              {monster.name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
