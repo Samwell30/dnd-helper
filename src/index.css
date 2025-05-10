@@ -29,91 +29,182 @@
     color: inherit; 
 }
 
+/* Landing Page Container */
+.landing {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Full viewport height */
+    background-color: #e66e53; 
+    font-weight: bolder;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* Hero Section */
+.hero {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero__title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white; /* Ensure the title text is white */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
+}
+
+.hero__subtitle {
+    font-size: 20px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    color: white; /* Ensure the subtitle text is white */
+}
+
+/* Buttons */
+.hero__buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* pages */
+
+.section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #e66e53; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+}
+
+.section h1 {
+    font-size: 44px;
+    color: black;
+    text-align: center;
+}
+
+.section p {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section li {
+    display: flex;
+    justify-content: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    cursor: pointer; /* Ensure the cursor changes to a pointer */
+}
+
+.section li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    background-color: #f9f9f9; /* Slightly change background color on hover */
+    color: #ec1111; /* Change text color on hover */
+}
+
+.section li a {
+    text-decoration: none;
+    color: inherit; /* Inherit the color from the parent <li> */
+    font-weight: bold;
+}
+
+.input-container {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+input, select {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: auto;
+    max-width: 200px;
+    box-sizing: border-box;
+}
+
 .red {
     color: red;
 }
 
-input, select {
-    margin-bottom: 20px; 
-    padding: 10px;
-    width: auto; 
-    max-width: 200px; 
-    box-sizing: border-box; 
-}
 
-.container {
-    display: flex;
-    gap: 16px; 
-    justify-content: flex-start; 
-}
-
-.spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  .spells {
+/* Detail Page Container */
+.detail-page {
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
-    margin-top: 10px; 
-    padding: 20px; 
-    background-color: #e66e53; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9); 
+    align-items: center;
+    justify-content: center;
+    height: 80vh; /* Full viewport height */
+    background-color: #e66e53; /* Match the landing page background */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.spells h1 {
-    font-size: 44px; /* Larger font size for the heading */
-    color: #333; /* Darker color for better readability */
+.btn__details {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
 }
 
-.spells p {
-    font-size: 20px; /* Larger font size for the heading */
-    color: white; /* Darker color for better readability */
-    font-weight: bold; /* Makes the text bold */;
-    margin-bottom: 20px; /* Adds spacing below the heading */
+.btn__details:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
-.spells ul {
-    list-style: none; /* Removes default bullet points */
-    padding: 0; /* Removes default padding */
-    margin: 0; /* Removes default margin */
-}
-
-.spells li {
-    padding: 10px 15px; /* Adds padding inside each spell item */
-    margin-bottom: 10px; /* Adds spacing between spell items */
-    background-color: #ffffff; /* White background for each item */
-    border: 1px solid #ddd; /* Subtle border around each item */
-    border-radius: 6px; /* Rounds the corners of each item */
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Adds hover effects */
-}
-
-.spells li:hover {
-    transform: translateY(-3px); /* Slightly lifts the item on hover */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Adds a shadow on hover */
-}
-
-.spells li a {
-    text-decoration: none; /* Removes underline from links */
-    color: #333; /* Dark text color for links */
-    font-weight: bold; /* Makes the text bold */
-}
-
-.spells li a:hover {
-    color: #ec1111; /* Changes link color on hover */
-}
-
-.spells__list {
+.loading-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
 }

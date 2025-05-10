@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 function Monsters() {
   const [monsters, setMonsters] = useState([]);
   const [searchMonster, setSearchMonster] = useState("");
   const [searchBySize, setSearchBySize] = useState("");
   const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     // Fetch the initial list of monsters
@@ -45,9 +47,13 @@ function Monsters() {
   });
 
   return (
-    <div className="monsters">
+    <div className="section">
       <h1>Monsters List</h1>
-      <div className="container">
+      <p>
+        Type a keyword (e.g., "dragon") or filter by size.
+        <br /> Scroll to explore all monsters.
+      </p>
+      <div className="input-container">
         <input
           type="text"
           placeholder="Search monsters..."
@@ -67,21 +73,20 @@ function Monsters() {
           <option value="Gargantuan">Gargantuan</option>
         </select>
       </div>
-      {isLoading ? (
-        <div className="spinner"></div> // Show spinner while loading
+      {isLoading ? ( // Show loading message while data is being fetched
+        <p>Loading monsters...</p>
       ) : (
-        <ul>
-          {filteredMonsters.length > 0 ? (
-            filteredMonsters.map((monster) => (
-              <li key={monster.index}>
-                <Link to={`/monsters/${monster.index}`}>{monster.name}</Link>
-              </li>
-            ))
-          ) : (
-            <p>No monsters found.</p>
-          )}
-        </ul>
-      )}
+<ul>
+  {filteredMonsters.map((monster) => (
+    <li
+      className="list-item"
+      key={monster.index}
+      onClick={() => navigate(`/monsters/${monster.index}`)} // Navigate on click
+    >
+      {monster.name}
+    </li>
+  ))}
+</ul>      )}
     </div>
   );
 }

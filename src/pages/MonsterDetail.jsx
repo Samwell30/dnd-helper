@@ -18,7 +18,7 @@ const MonsterDetail = () => {
   }, [monsterIndex]);
 
   if (!monster) {
-    return <div>Loading...</div>; // Show a loading message while fetching data
+    return <div className="loading-container">Loading...</div>; // Show a loading message while fetching data
   }
 
   const renderSpeed = () => {
@@ -31,10 +31,7 @@ const MonsterDetail = () => {
   };
 
   return (
-    <div>
-      <Link to="/monsters" className="landing__link">
-        <button className="btn">Back to Monsters</button>
-      </Link>
+    <div className="detail-page">
 
       <h1>{monster.name}</h1>
       <p>
@@ -66,6 +63,9 @@ const MonsterDetail = () => {
           <p>No actions available.</p>
         )}
       </div>
+      <Link to="/monsters" >
+        <button className="btn__details">Back to Monsters</button>
+      </Link>
     </div>
   );
 };

@@ -1,41 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-
-const Landing = () => {
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate()
-    }
-    
-    return (
-    <section id="landing">
-      <header>
-        <div className="header__container">
-          <div className="header__description">
-          <h1>Hello. Welcome to the Dnd Assist website</h1>
-          <h2>Here you can look up spells and Monster types!</h2>
-          </div>
+function Landing() {
+  return (
+    <div className="landing">
+      <div className="hero">
+        <h1 className="hero__title">Welcome to the D<span className="red">&</span>D Helper</h1>
+        <p className="hero__subtitle">
+          Your ultimate companion for exploring spells, monsters, and more!
+        </p>
+        <div className="hero__buttons">
+          <Link to="/spells" className="btn">
+            Explore Spells
+          </Link>
+          <Link to="/monsters" className="btn">
+            Discover Monsters
+          </Link>
         </div>
-      </header>
-      <main>
-        <div className="landing__links">
-            <h3>Start Exploring spells</h3>
-            <Link to="/spells" className="landing__link">            
-            <button onClick={handleClick} className='btn'>Spells List</button>
-            </Link>
-        </div>
-        <div className="landing__links">
-            <h3>Start Exploring Monsters</h3>
-            <Link to="/monsters" className="landing__link">            
-            <button onClick={handleClick} className='btn'>Monster List</button>
-            </Link>
-        </div>
-      </main>
-    </section>
-  )
+      </div>
+    </div>
+  );
 }
 
-export default Landing
+export default Landing;

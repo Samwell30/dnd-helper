@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SpellsList() {
   const [spells, setSpells] = useState([]);
   const [searchSpell, setSearchSpell] = useState('');
   const [searchLevel, setSearchLevel] = useState('');
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     axios.get('https://www.dnd5eapi.co/api/spells')
@@ -18,41 +19,43 @@ function SpellsList() {
   }, []);
 
   const filteredSpells = spells.filter(spell => {
-    const spellList =spell.name.toLowerCase().includes(searchSpell.toLowerCase());
+    const spellList = spell.name.toLowerCase().includes(searchSpell.toLowerCase());
     const spellLevel = searchLevel === '' || spell.level === parseInt(searchLevel); // Match level if provided
     return spellList && spellLevel;
-
-});
+  });
 
   return (
-    <div className='spells'>
+    <div className="section">
       <h1>Spells List</h1>
-      <p>For a better experience
-      type a keyword (e.g., "fire") or search by spell level
-      <br /> or scroll as you desire
+      <p>
+        Type a keyword (e.g., "fire") or search by spell level.
+        <br /> Scroll to explore all spells.
       </p>
-    <div className="container">
-      <input
-        type="text"
-        placeholder="Search spells..."
-        value={searchSpell}
-        onChange={(e) => setSearchSpell(e.target.value)}
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder="Search spells..."
+          value={searchSpell}
+          onChange={(e) => setSearchSpell(e.target.value)}
         />
-      <input
-        type="number"
-        placeholder="Search spells by level..."
-        value={searchLevel}
-        onChange={(e) => setSearchLevel(e.target.value)}
+        <input
+          type="number"
+          placeholder="Search spells by level..."
+          value={searchLevel}
+          onChange={(e) => setSearchLevel(e.target.value)}
         />
-        </div>
+      </div>
       <ul>
-        {filteredSpells.map(spell => (
-          <li className="spells__list" key={spell.index}>
-            <Link to={`/spells/${spell.index}`}>{spell.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      {filteredSpells.map((spell) => (
+    <li
+      className="list-item"
+      key={spell.index}
+      onClick={() => navigate(`/spells/${spell.index}`)} // Navigate on click
+    >
+      {spell.name}
+    </li>
+  ))}
+</ul>    </div>
   );
 }
 

@@ -21,15 +21,15 @@ const SpellDetails = () => {
   }
 
   return (
-    <div>
-        <Link to="/spells" className="landing__link">
-          <button className="btn">Back to Spells</button>
-          </Link>
+    <div className='detail-page'>
       <h1>{spell.name} --- <span className='red'>Spell level</span> {spell.level}</h1>
       <p><strong>Description:</strong> {spell.desc?.join(' ')}</p>
       <p><strong>Range:</strong> {spell.range}</p>
       <p><strong>Duration:</strong> {spell.duration}</p>
       <p><strong>Casting Time:</strong> {spell.casting_time}</p>
+        <Link to="/spells">
+          <button className="btn__details">Back to Spells</button>
+          </Link>
     </div>
   );
 };
