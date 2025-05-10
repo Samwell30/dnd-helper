@@ -1,9 +1,119 @@
-input {
-    margin-Bottom: '20px';
-    padding: 10px;
-    width: 50%;
+.nav__list {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 10px 20px; 
+    margin: 0;
+    background: linear-gradient(180deg, #e66e53, #dccbb2); 
+    border-bottom: 2px solid #ec1111; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+    border-radius: 8px; 
+}
+
+.nav__item {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white; 
+    font-size: 18px;
+    font-weight: bold; 
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+
+.nav__item:hover {
+    color: #ffcc00; 
+    transform: scale(1.1);
+}
+
+.nav__item a {
+    text-decoration: none; 
+    color: inherit; 
 }
 
 .red {
     color: red;
+}
+
+input, select {
+    margin-bottom: 20px; 
+    padding: 10px;
+    width: auto; 
+    max-width: 200px; 
+    box-sizing: border-box; 
+}
+
+.container {
+    display: flex;
+    gap: 16px; 
+    justify-content: flex-start; 
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .spells {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px; 
+    padding: 20px; 
+    background-color: #e66e53; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9); 
+}
+
+.spells h1 {
+    font-size: 44px; /* Larger font size for the heading */
+    color: #333; /* Darker color for better readability */
+}
+
+.spells p {
+    font-size: 20px; /* Larger font size for the heading */
+    color: white; /* Darker color for better readability */
+    font-weight: bold; /* Makes the text bold */;
+    margin-bottom: 20px; /* Adds spacing below the heading */
+}
+
+.spells ul {
+    list-style: none; /* Removes default bullet points */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+}
+
+.spells li {
+    padding: 10px 15px; /* Adds padding inside each spell item */
+    margin-bottom: 10px; /* Adds spacing between spell items */
+    background-color: #ffffff; /* White background for each item */
+    border: 1px solid #ddd; /* Subtle border around each item */
+    border-radius: 6px; /* Rounds the corners of each item */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Adds hover effects */
+}
+
+.spells li:hover {
+    transform: translateY(-3px); /* Slightly lifts the item on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Adds a shadow on hover */
+}
+
+.spells li a {
+    text-decoration: none; /* Removes underline from links */
+    color: #333; /* Dark text color for links */
+    font-weight: bold; /* Makes the text bold */
+}
+
+.spells li a:hover {
+    color: #ec1111; /* Changes link color on hover */
+}
+
+.spells__list {
+    display: flex;
+    justify-content: center;
 }

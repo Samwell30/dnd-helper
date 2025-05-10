@@ -1,27 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Nav = () => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate();
-  };
-
   return (
-    <div>
-      <Link to="/" className="landing__link">
-        <button onClick={handleClick} className="btn">
-          Home
-        </button>
-      </Link>
-      <Link to="/about" className="landing__link">
-        <button onClick={handleClick} className="btn">
-          About
-        </button>
-      </Link>
-    </div>
+    <nav>
+        <ul className="nav__list">
+            <li className="nav__item"><Link to="/">Home</Link></li>
+            <li className="nav__item"><Link to="/spells">Spells</Link></li>
+            <li className="nav__item"><Link to="/monsters">Monsters</Link></li>
+            <li className="nav__item"><Link to="/about">About</Link></li>
+        </ul>
+    </nav>
   );
 };
 
