@@ -24,6 +24,7 @@ const SpellDetails = () => {
   return (
     <div className='detail__page'>
       <h1>{spell.name} <span> --- Spell level</span> {spell.level}</h1>
+      <div className='details'>
       <p><strong>Description:</strong> {spell.desc?.join(' ')}</p>
       <p><strong>Range:</strong> {spell.range}</p>
       <p><strong>Duration:</strong> {spell.duration}</p>
@@ -31,6 +32,7 @@ const SpellDetails = () => {
         <Link to="/spells">
           <button className="btn__details">Back to Spells</button>
           </Link>
+      </div>
     </div>
   );
 };

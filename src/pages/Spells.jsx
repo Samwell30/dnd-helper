@@ -10,12 +10,10 @@ const SpellsList = () => {
   const navigate = useNavigate();
 
   async function fetchSpells() {
-    setIsLoading(true); // Set loading state
-    const { data } = await axios.get(
-      "https://www.dnd5eapi.co/api/spells"
-    );
+    setIsLoading(true);
+    const { data } = await axios.get("https://www.dnd5eapi.co/api/spells");
     setSpells(data.results);
-    setIsLoading(false); // Ensure loading state is updated
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -27,7 +25,7 @@ const SpellsList = () => {
       .toLowerCase()
       .includes(searchSpell.toLowerCase());
     const spellLevel =
-      searchLevel === "" || spell.level === parseInt(searchLevel, 10); // Include all spells if searchLevel is empty
+      searchLevel === "" || spell.level === parseInt(searchLevel, 10);
     return spellList && spellLevel;
   });
 
@@ -60,12 +58,12 @@ const SpellsList = () => {
       {isLoading ? (
         <p>Loading spells...</p>
       ) : (
-        <ul>
+        <ul className="list__items">
           {filteredSpells.map((spell) => (
             <li
               className="list__item"
               key={spell.index}
-              onClick={() => navigate(`/spells/${spell.index}`)} // Navigate on click
+              onClick={() => navigate(`/spells/${spell.index}`)}
             >
               {spell.name}
             </li>

@@ -9,24 +9,28 @@ function Monsters() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
+useEffect(() => {
+  const cachedMonsters = localStorage.getItem("detailedMonsters");
+
+  if (cachedMonsters) {
+    setMonsters(JSON.parse(cachedMonsters));
+    setIsLoading(false);
+  } else {
     axios.get("https://www.dnd5eapi.co/api/monsters").then((response) => {
       const monsterSummaries = response.data.results;
 
       const fetchDetails = monsterSummaries.map((monster) =>
-        axios
-          .get(`https://www.dnd5eapi.co${monster.url}`)
-          .then((res) => res.data)
+        axios.get(`https://www.dnd5eapi.co${monster.url}`).then((res) => res.data)
       );
 
       Promise.all(fetchDetails).then((detailedMonsters) => {
-        console.log("Detailed Monsters:", detailedMonsters);
+        localStorage.setItem("detailedMonsters", JSON.stringify(detailedMonsters));
         setMonsters(detailedMonsters);
         setIsLoading(false);
       });
     });
-    setIsLoading(true);
-  }, []);
+  }
+}, []);
 
   const filteredMonsters = monsters.filter((monster) => {
     const size = monster.size || "Unknown"; // Provide a fallback value for size
@@ -65,15 +69,15 @@ function Monsters() {
           <option value="Gargantuan">Gargantuan</option>
         </select>
       </div>
-      {isLoading ? ( // Show loading message while data is being fetched
+      {isLoading ? ( 
         <p>Loading monsters...</p>
       ) : (
-        <ul>
+        <ul className="list__items">
           {filteredMonsters.map((monster) => (
             <li
               className="list__item"
               key={monster.index}
-              onClick={() => navigate(`/monsters/${monster.index}`)} // Navigate on click
+              onClick={() => navigate(`/monsters/${monster.index}`)} 
             >
               {monster.name}
             </li>

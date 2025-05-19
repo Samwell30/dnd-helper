@@ -6,6 +6,9 @@ import Nav from "./components/Nav";
 import About from "./pages/About";
 import SpellDetails from "./pages/SpellDetails";
 import MonsterDetail from "./pages/MonsterDetail";
+import Footer from "./components/Footer";
+import Equipment from "./pages/Equipment";
+import MagicItemList from "./pages/MagicItems";
 
 
 function App() {
@@ -20,7 +23,10 @@ function App() {
         <Route path="/spells/:spellIndex" element={<SpellDetails />} />
         <Route path="/monsters" element={<Monsters />} />
         <Route path="/monsters/:monsterIndex" element={<MonsterDetail />} />
+        <Route path="/equipment" element={<Equipment /> } />
+        <Route path="/magicItems" element={<MagicItemList /> } />
       </Routes>
+      <Footer />
     </div>
     </BrowserRouter>
   );
