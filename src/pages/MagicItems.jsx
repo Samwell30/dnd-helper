@@ -8,15 +8,7 @@ const MagicItemList = () => {
   const [rarityFilter, setRarityFilter] = useState("");
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-  useEffect(() => {
-    const storedMagic = localStorage.getItem("magicItem");
-    if (storedMagic) {
-      setMagicItems(JSON.parse(storedMagic));
-      setIsLoading(false);
-    } else {
-      fetchMagicItems();
-    }
-  }, [])
+
 
   async function fetchMagicItems() {
     setIsLoading(true);
@@ -24,52 +16,25 @@ const MagicItemList = () => {
       const { data } = await axios.get(
         "https://www.dnd5eapi.co/api/2014/magic-items"
       );
-      setMagicItems(data.results);
-      localStorage.setItem("magicItem", JSON.stringify(data.results))
+
+      const detailPromises = data.results.map((item) =>
+        axios.get(`https://www.dnd5eapi.co/api/2014/magic-items/${item.index}`)
+      );
+
+      const responses = await Promise.all(detailPromises);
+      const detailedItems = responses.map((res) => res.data);
+
+      setMagicItems(detailedItems);
     } catch (error) {
-      console.log("error fetching items:", error)
+      console.error("Error fetching magic items:", error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
-  async function fetchMagicDetail(index) {
-    if (expandedIndex === index) {
-      setExpandedIndex(null);
-      setRarityFilter(null);
-      return;
-    }
-
-    try {
-      const { data } = await axios.get(
-        `https://www.dnd5eapi.co/api/2014/magic-items/${index}`
-      )
-      setRarityFilter(data);
-      setExpandedIndex(index);
-    } catch (error) {
-      console.error("error fetching rarity", error)
-    }
-  }
-  //   setIsLoading(true);
-  //   try {
-
-  //     const detailPromises = data.results.map((item) =>
-  //       axios.get(`https://www.dnd5eapi.co/api/2014/magic-items/${item.index}`)
-  //     );
-
-  //     const responses = await Promise.all(detailPromises);
-  //     const detailedItems = responses.map((res) => res.data);
-
-  //     setMagicItems(detailedItems);
-  //   } catch (error) {
-  //     console.error("Error fetching magic items:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchMagicItems();
-  // }, []);
+  useEffect(() => {
+    fetchMagicItems();
+  }, []);
 
   const filteredItems = magicItems.filter((item) => {
     const nameMatch = item.name
@@ -122,7 +87,7 @@ const MagicItemList = () => {
               }
               style={{ cursor: "pointer" }}
             >
-              <div className="item-name">{item.name}</div>
+              <div>{item.name}</div>
 
               {expandedIndex === item.index && (
                 <div className="equipment-detail">
