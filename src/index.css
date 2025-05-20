@@ -147,7 +147,7 @@ span {
 .section h1 {
   font-size: 44px;
   color: black;
-  text-align: center;
+  margin-bottom: 12px;
 }
 
 .section p {

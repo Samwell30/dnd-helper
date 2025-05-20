@@ -10,7 +10,7 @@ const Nav = () => {
             <li className="nav__item"><Link to="/monsters">Monsters</Link></li>
             <li className="nav__item"><Link to="/equipment">Equipment</Link></li>
             <li className="nav__item"><Link to="/magicItems">Magic Items</Link></li>
-            <li className="nav__item"><Link to="/about">About</Link></li>
+            {/* <li className="nav__item"><Link to="/about">About</Link></li> */}
         </ul>
     </nav>
   );
