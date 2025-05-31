@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const EquipmentList = () => {
   const [equipment, setEquipment] = useState([]);
@@ -8,25 +8,35 @@ const EquipmentList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [categories, setCategories] = useState(["All"]);
   const [isMagicCategory, setIsMagicCategory] = useState(false);
 
-  const magicItemCategories = [
-    "ring",
-    "potion",
-    "rod",
-    "wand",
-    "staff",
-    "wondrous item",
-  ];
+  const magicItemCategories = useMemo(
+    () => [
+      "ring",
+      "potion",
+      "rod",
+      "wand",
+      "staff",
+      "wondrous item",
+    ],
+    []
+  );
 
   useEffect(() => {
-    fetchCategories();
-    fetchEquipmentList();
-  }, []);
+    if (location.state && location.state.category) {
+      setSelectedCategory(location.state.category);
+      setIsMagicCategory(magicItemCategories.includes(location.state.category.toLowerCase()));
+      fetchEquipmentByCategory(location.state.category);
+    } else {
+      fetchCategories();
+      fetchEquipmentList();
+    }
+  }, [location.state, magicItemCategories]);
 
   useEffect(() => {
     if (selectedCategory === "All") {
@@ -132,7 +142,7 @@ const EquipmentList = () => {
             setIsMagicCategory(isMagic);
 
             if (!isMagic) {
-              fetchEquipmentByCategory(picked); // or your existing fetch logic
+              fetchEquipmentByCategory(picked);
             }
           }}
         >

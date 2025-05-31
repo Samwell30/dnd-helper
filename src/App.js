@@ -8,26 +8,29 @@ import MonsterDetail from "./pages/MonsterDetail";
 import Footer from "./components/Footer";
 import Equipment from "./pages/Equipment";
 import MagicItemList from "./pages/MagicItems";
+import Classes from "./pages/Classes";
+import ClassDetail from "./pages/ClassDetail";
 
 
 function App() {
   return (
-    <BrowserRouter>
-    <div id="app">
-      <Nav/>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/spells" element={<SpellsList />} />
-        <Route path="/spells/:spellIndex" element={<SpellDetails />} />
-        <Route path="/monsters" element={<Monsters />} />
-        <Route path="/monsters/:monsterIndex" element={<MonsterDetail />} />
-        <Route path="/equipment" element={<Equipment /> } />
-        <Route path="/magicItems" element={<MagicItemList /> } />
-      </Routes>
-      <Footer />
-    </div>
+    <BrowserRouter basename={process.env.NODE_ENV === "production" ? "/dnd-helper" : undefined}>
+      <div id="app">
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/spells" element={<SpellsList />} />
+          <Route path="/spells/:spellIndex" element={<SpellDetails />} />
+          <Route path="/monsters" element={<Monsters />} />
+          <Route path="/monsters/:monsterIndex" element={<MonsterDetail />} />
+          <Route path="/equipment" element={<Equipment />} />
+          <Route path="/magicItems" element={<MagicItemList />} />
+          <Route path="/classes" element={<Classes />} />
+          <Route path="/classes/:classIndex" element={<ClassDetail />} />
+        </Routes>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
-
 export default App;
