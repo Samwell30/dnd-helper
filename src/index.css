@@ -139,7 +139,6 @@ span {
   flex-direction: column;
   margin-top: 10px;
   padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
   min-height: 84.5vh;
   align-items: center;
 }
