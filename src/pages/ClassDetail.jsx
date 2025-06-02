@@ -21,8 +21,9 @@ const ClassDetail = () => {
                     `https://www.dnd5eapi.co/api/classes/${classIndex}`
                 );
                 setClassData(data);
-                // Fetch ability scores
-                const abilityRes = await axios.get("https://www.dnd5eapi.co/api/ability-scores");
+                const abilityRes = await axios.get(
+                    "https://www.dnd5eapi.co/api/ability-scores"
+                );
                 setAbilityScores(abilityRes.data.results);
             } catch (err) {
                 setError("Failed to load class details.");
@@ -87,15 +88,27 @@ const ClassDetail = () => {
                     </ul>
                 </>
             )}
-                        {abilityScores.length > 0 && (
+            {abilityScores.length > 0 && (
                 <div>
-                    <div style={{ textAlign: "center", fontWeight: "bold", padding:"20px" }}>Ability Scores:</div>
-                    <ul style={{ display: "flex", gap: "1em", flexWrap: "wrap", padding: 0, alignItems: "flex-start" }}>
+                    <div
+                        style={{ textAlign: "center", fontWeight: "bold", padding: "20px" }}
+                    >
+                        Ability Scores:
+                    </div>
+                    <ul
+                        style={{
+                            display: "flex",
+                            gap: "1em",
+                            flexWrap: "wrap",
+                            padding: 0,
+                            alignItems: "flex-start",
+                        }}
+                    >
                         {abilityScores.map((score) => (
                             <li
-                                className="list__item"
+                                style={{ position: "relative", cursor: "pointer" }}
+                                className="list__item ability__score"
                                 key={score.index}
-                                style={{ cursor: "pointer", color: selectedAbilityScore === score.index ? "blue" : undefined, listStyle: "none", margin: 0, position: "relative" }}
                                 onClick={async () => {
                                     if (selectedAbilityScore === score.index) {
                                         setSelectedAbilityScore(null);
@@ -105,35 +118,32 @@ const ClassDetail = () => {
                                     setSelectedAbilityScore(score.index);
                                     setAbilityScoreDetail(null);
                                     try {
-                                        const { data } = await axios.get(`https://www.dnd5eapi.co/api/ability-scores/${score.index}`);
+                                        const { data } = await axios.get(
+                                            `https://www.dnd5eapi.co/api/ability-scores/${score.index}`
+                                        );
                                         setAbilityScoreDetail(data);
                                     } catch {
-                                        setAbilityScoreDetail({ name: score.name, desc: ["Failed to load details."] });
+                                        setAbilityScoreDetail({
+                                            name: score.name,
+                                            desc: ["Failed to load details."],
+                                        });
                                     }
                                 }}
                             >
                                 {score.name}
                                 {selectedAbilityScore === score.index && (
-                                    <div style={{
-                                        position: "absolute",
-                                        top: "100%",
-                                        left: 0,
-                                        zIndex: 10,
-                                        background: "#fff",
-                                        border: "1px solid #ccc",
-                                        borderRadius: 4,
-                                        padding: "1em",
-                                        minWidth: 200,
-                                        marginTop: 4,
-                                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-                                    }}>
+                                    <div className="ability__score__detail">
                                         {abilityScoreDetail ? (
                                             <>
-                                                <strong>{abilityScoreDetail.full_name || abilityScoreDetail.name}</strong>
+                                                <strong>
+                                                    {abilityScoreDetail.full_name ||
+                                                        abilityScoreDetail.name}
+                                                </strong>
                                                 <ul>
-                                                    {abilityScoreDetail.desc && abilityScoreDetail.desc.map((desc, i) => (
-                                                        <li key={i}>{desc}</li>
-                                                    ))}
+                                                    {abilityScoreDetail.desc &&
+                                                        abilityScoreDetail.desc.map((desc, i) => (
+                                                            <li key={i}>{desc}</li>
+                                                        ))}
                                                 </ul>
                                             </>
                                         ) : (

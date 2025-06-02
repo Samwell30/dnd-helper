@@ -9,12 +9,23 @@ body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  background-color: #fff; /* Optional: match your app’s background */
+  background-color: #fff;
 }
 
-#app > *:not(footer) {
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#app > main {
   flex: 1;
 }
+
+/* Remove or comment out this rule, as it causes all children except footer to grow, which breaks sticky footer: */
+/* #app > *:not(footer) {
+  flex: 1;
+} */
 
 span {
   color: black;
@@ -57,28 +68,29 @@ span {
 #about {
   margin-top: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 83.5vh; 
+  min-height: 83.5vh;
   font-weight: bolder;
   text-align: center;
 }
 
-/* Hero Section */
-
 .hero {
+  margin-top: 65px;
   max-width: 600px;
   padding: 20px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  margin-bottom: auto;
 }
 
 .hero__title {
   font-size: 48px;
   font-weight: bold;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero__subtitle {
@@ -88,6 +100,34 @@ span {
 }
 
 /* quick search  */
+
+.quick-search {
+  position: relative;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.quick-search input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #444;
+  background: #1b1b1b;
+  color: #eee;
+}
+
+.quick-search__drop {
+  position: static;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 0.5rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  z-index: 1000;
+  width: 100%;
+  max-width: 28rem;
+  margin-top: 0.5rem;
+}
 
 .quick-search__drop li {
   padding: 0.5rem 0.8rem;
@@ -100,14 +140,12 @@ span {
 }
 
 .quick-search__drop li:hover {
-  background: white;
+  background: #ec1111;
 }
 
 .quick-search__tag {
   width: 1.8rem;
 }
-
-
 
 /* Buttons */
 .hero__buttons {
@@ -178,13 +216,13 @@ span {
 .section li:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  background-color: #f9f9f9; /* Slightly change background color on hover */
-  color: #ec1111; /* Change text color on hover */
+  background-color: #f9f9f9;
+  color: #ec1111;
 }
 
 .section li a {
   text-decoration: none;
-  color: inherit; /* Inherit the color from the parent <li> */
+  color: inherit;
   font-weight: bold;
 }
 
@@ -229,7 +267,7 @@ select {
   border-left: 4px solid #ccc;
   border-radius: 4px;
   font-size: 0.9rem;
-  width:100%;
+  width: 100%;
 }
 
 /* Detail Page Container */
@@ -245,7 +283,8 @@ select {
   min-height: 84.5vh;
 }
 
-.detail__page li, p {
+.detail__page li,
+p {
   list-style: none;
   line-height: 1.4;
 }
@@ -282,7 +321,7 @@ select {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   text-align: center;
   color: white;
   font-size: 24px;
@@ -291,35 +330,31 @@ select {
   border-radius: 8px;
 }
 
-
-.quick-search {
-  position: relative;
-  max-width: 28rem;
-  margin: 0 auto;
-}
-
-.quick-search input {
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid #444;
-  background: #1b1b1b;
-  color: #eee;
-}
-
-.quick-search__drop {
+.skill__score__detail {
   position: absolute;
-  top: 102%;
+  top: 100%;
   left: 0;
-  right: 0;
-  background: #222;
-  border: 1px solid #444;
-  border-radius: 0.5rem;
-  max-height: 14rem;
-  overflow-y: auto;
   z-index: 10;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4;
+  padding: 1em;
+  min-width: 200;
+  margin-top: 4;
 }
-
+.ability__score__detail {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4;
+  padding: 1em;
+  min-width: 200;
+  margin-top: 4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
 footer {
   background-color: #333;
