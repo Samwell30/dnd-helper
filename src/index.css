@@ -64,8 +64,7 @@ span {
 
 /* Landing Page Container */
 
-#landing,
-#about {
+#landing {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -112,8 +111,7 @@ span {
   padding: 0.6rem 0.8rem;
   border-radius: 0.5rem;
   border: 1px solid #444;
-  background: #1b1b1b;
-  color: #eee;
+  background: rgba(230, 110, 83, 0.13);
 }
 
 .quick-search__drop {
