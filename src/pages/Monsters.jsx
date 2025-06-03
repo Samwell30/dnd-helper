@@ -9,26 +9,11 @@ function Monsters() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const cachedMonsters = localStorage.getItem("detailedMonsters");
-
-    if (cachedMonsters) {
-      setMonsters(JSON.parse(cachedMonsters));
+    setIsLoading(true);
+    axios.get("https://www.dnd5eapi.co/api/monsters").then((response) => {
+      setMonsters(response.data.results);
       setIsLoading(false);
-    } else {
-      axios.get("https://www.dnd5eapi.co/api/monsters").then((response) => {
-        const monsterSummaries = response.data.results;
-
-        const fetchDetails = monsterSummaries.map((monster) =>
-          axios.get(`https://www.dnd5eapi.co${monster.url}`).then((res) => res.data)
-        );
-
-        Promise.all(fetchDetails).then((detailedMonsters) => {
-          localStorage.setItem("detailedMonsters", JSON.stringify(detailedMonsters));
-          setMonsters(detailedMonsters);
-          setIsLoading(false);
-        });
-      });
-    }
+    });
   }, []);
 
   const filteredMonsters = monsters.filter((monster) =>
@@ -51,11 +36,12 @@ function Monsters() {
         />
         {searchMonster && (
           <button
+            className="btn"
             aria-label="Clear search"
             onClick={() => setSearchMonster("")}
             style={{ marginLeft: 8 }}
           >
-            ✖
+            Clear
           </button>
         )}
       </div>
