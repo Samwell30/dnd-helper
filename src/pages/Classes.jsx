@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
@@ -48,13 +47,16 @@ const Classes = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
       {isLoading && <p>Loading...</p>}
       <ul className="list__items">
-        {classes.map((cls) => (
-          <li className="list__item" key={cls.index}>
-            <Link to={`/classes/${cls.index}`}>{cls.name}</Link>
+        {classes.map((cls, idx) => (
+          <li
+            className="list__item"
+            key={cls.index}
+            onClick={() => (window.location.href = `/classes/${cls.index}`)}>
+            <span style={{color: "inherit" }}>
+              {cls.name}
+            </span>
             {spellcasting[cls.index] && (
-              <span style={{ marginLeft: 8, color: "purple" }}>
-                (Spellcaster)
-              </span>
+              <span style={{ color: "#e66e53", marginLeft: 8 }}>Spellcaster</span>
             )}
           </li>
         ))}

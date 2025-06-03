@@ -49,13 +49,12 @@ function Monsters() {
         <p>Loading monsters...</p>
       ) : (
         <ul className="list__items">
-          {filteredMonsters.map((monster) => (
+          {filteredMonsters.map((monster, idx) => (
             <li
               className="list__item"
               key={monster.index}
               onClick={() => navigate(`/monsters/${monster.index}`)}
               title={`Index: ${monster.index}\nAPI URL: https://www.dnd5eapi.co${monster.url}`}
-              style={{ cursor: 'pointer' }}
             >
               {monster.name}
             </li>

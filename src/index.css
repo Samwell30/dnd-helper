@@ -200,9 +200,11 @@ span {
   margin: 0;
 }
 
-.section li {
+.section li,
+.list__item {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 10px 15px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
@@ -213,17 +215,9 @@ span {
   background-color: #fff;
 }
 
-.section li:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  background-color: #f9f9f9;
-  color: #ec1111;
-}
-
-.section li a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: bold;
+.section li:nth-child(even),
+.list__item:nth-child(even) {
+  background-color: rgba(230, 110, 83, 0.13);
 }
 
 .input__container {
@@ -247,18 +241,6 @@ select {
 
 .list__items {
   width: 50%;
-}
-
-.list__item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease,
-    background-color 0.2s ease;
 }
 
 .equipment-detail {

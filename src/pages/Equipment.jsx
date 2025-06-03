@@ -173,13 +173,12 @@ const EquipmentList = () => {
         <p>No equipment found.</p>
       ) : (
         <ul className="list__items">
-          {filteredEquipment.map((item) => (
+          {filteredEquipment.map((item, idx) => (
             <li
               className="list__item"
               key={item.index}
               onClick={() => fetchEquipmentDetail(item.index)}
-              style={{ cursor: "pointer" }}
-            >
+              >
               {item.name}
               {expandedIndex === item.index && selectedEquipment && (
                 <div

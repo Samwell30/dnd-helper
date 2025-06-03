@@ -59,7 +59,7 @@ const SpellsList = () => {
         <p>Loading spells...</p>
       ) : (
         <ul className="list__items">
-          {filteredSpells.map((spell) => (
+          {filteredSpells.map((spell, idx) => (
             <li
               className="list__item"
               key={spell.index}

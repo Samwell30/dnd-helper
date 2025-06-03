@@ -34,8 +34,7 @@ const ClassDetail = () => {
     }, [classIndex]);
 
     const handleEquipmentProficiencyClick = (prof) => {
-        const category = prof.name;
-        navigate("/equipment", { state: { category } });
+        navigate("/equipment");
     };
 
     if (isLoading)
