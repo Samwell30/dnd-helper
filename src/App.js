@@ -10,6 +10,7 @@ import Equipment from "./pages/Equipment";
 import MagicItemList from "./pages/MagicItems";
 import Classes from "./pages/Classes";
 import ClassDetail from "./pages/ClassDetail";
+import Features from "./pages/Features";
 
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
           <Route path="/magicItems" element={<MagicItemList />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="/classes/:classIndex" element={<ClassDetail />} />
+          <Route path="/features" element={<Features />} />
+          
         </Routes>
         <Footer />
       </div>

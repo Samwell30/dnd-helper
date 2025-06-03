@@ -336,6 +336,22 @@ p {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.race-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 90%;
+  max-width: 500px;
+  z-index: 1001;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+}
+
 footer {
   background-color: #333;
   color: #fff;
@@ -345,3 +361,4 @@ footer {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
   bottom: auto;
 }
+

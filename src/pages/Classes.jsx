@@ -4,8 +4,11 @@ import axios from "axios";
 const Classes = () => {
   const [classes, setClasses] = useState([]);
   const [spellcasting, setSpellcasting] = useState({});
+  const [allRaces, setAllRaces] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedRace, setSelectedRace] = useState(null);
+  const [raceDetail, setRaceDetail] = useState(null);
 
   // Fetch list of classes
   useEffect(() => {
@@ -39,11 +42,129 @@ const Classes = () => {
       setIsLoading(false);
     }
     fetchClasses();
+
+    // Fetch all races
+    async function fetchRaces() {
+      try {
+        // Try both endpoints for maximum compatibility
+        let data;
+        try {
+          ({ data } = await axios.get("https://www.dnd5eapi.co/api/2014/races"));
+        } catch {
+          ({ data } = await axios.get("https://www.dnd5eapi.co/api/races"));
+        }
+        setAllRaces(data.results);
+      } catch { }
+    }
+    fetchRaces();
   }, []);
 
   return (
     <div className="section">
       <h1>Classes</h1>
+      {/* Show all races under the Classes title */}
+      {allRaces.length > 0 && (
+        <div style={{ marginBottom: 16, color: '#555', fontSize: 15, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          <strong style={{ width: '100%' }}>All Races:</strong>
+          {allRaces.map(r => (
+            <span
+              key={r.index}
+              style={{
+                textDecoration: 'underline',
+                color: selectedRace === r.index ? '#e66e53' : '#555',
+                cursor: 'pointer',
+                fontWeight: selectedRace === r.index ? 'bold' : 'normal',
+                background: selectedRace === r.index ? 'rgba(230,110,83,0.13)' : 'none',
+                borderRadius: 4,
+                padding: '2px 6px',
+                transition: 'background 0.2s',
+              }}
+              onClick={async () => {
+                if (selectedRace === r.index) {
+                  setSelectedRace(null);
+                  setRaceDetail(null);
+                  return;
+                }
+                setSelectedRace(r.index);
+                setRaceDetail(null);
+                try {
+                  let data;
+                  try {
+                    ({ data } = await axios.get(`https://www.dnd5eapi.co/api/2014/races/${r.index}`));
+                  } catch {
+                    ({ data } = await axios.get(`https://www.dnd5eapi.co/api/races/${r.index}`));
+                  }
+                  setRaceDetail(data);
+                } catch {
+                  setRaceDetail({ name: r.name, desc: ['Failed to load details.'] });
+                }
+              }}
+            >
+              {r.name}
+            </span>
+          ))}
+        </div>
+      )}
+      {selectedRace && raceDetail && (
+        <>
+          {/* Overlay for click-away to close race detail */}
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              background: 'rgba(0,0,0,0.01)',
+              zIndex: 1000,
+            }}
+            onClick={() => {
+              setSelectedRace(null);
+              setRaceDetail(null);
+            }}
+          />
+          <div
+            className="ability__score__detail race-modal"
+            onClick={e => e.stopPropagation()} // Prevent overlay click from closing when clicking inside
+          >
+            <strong>{raceDetail.name}</strong>
+            {raceDetail.alignment && (
+              <p><strong>Alignment:</strong> {raceDetail.alignment}</p>
+            )}
+            {raceDetail.age && (
+              <p><strong>Age:</strong> {raceDetail.age}</p>
+            )}
+            {raceDetail.size && (
+              <p><strong>Size:</strong> {raceDetail.size}</p>
+            )}
+            {raceDetail.speed && (
+              <p><strong>Speed:</strong> {raceDetail.speed}</p>
+            )}
+            {raceDetail.language_desc && (
+              <p><strong>Languages:</strong> {raceDetail.language_desc}</p>
+            )}
+            {raceDetail.ability_bonuses && raceDetail.ability_bonuses.length > 0 && (
+              <p><strong>Ability Bonuses:</strong> {raceDetail.ability_bonuses.map(b => `${b.ability_score.name} +${b.bonus}`).join(', ')}</p>
+            )}
+            {raceDetail.starting_proficiencies && raceDetail.starting_proficiencies.length > 0 && (
+              <p><strong>Proficiencies:</strong> {raceDetail.starting_proficiencies.map(p => p.name).join(', ')}</p>
+            )}
+            {raceDetail.traits && raceDetail.traits.length > 0 && (
+              <p><strong>Traits:</strong> {raceDetail.traits.map(t => t.name).join(', ')}</p>
+            )}
+            {raceDetail.subraces && raceDetail.subraces.length > 0 && (
+              <p><strong>Subraces:</strong> {raceDetail.subraces.map(s => s.name).join(', ')}</p>
+            )}
+            {raceDetail.desc && (
+              <ul>
+                {raceDetail.desc.map((desc, i) => (
+                  <li key={i}>{desc}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </>
+      )}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {isLoading && <p>Loading...</p>}
       <ul className="list__items">
@@ -52,7 +173,7 @@ const Classes = () => {
             className="list__item"
             key={cls.index}
             onClick={() => (window.location.href = `/classes/${cls.index}`)}>
-            <span style={{color: "inherit" }}>
+            <span style={{ color: "inherit" }}>
               {cls.name}
             </span>
             {spellcasting[cls.index] && (
