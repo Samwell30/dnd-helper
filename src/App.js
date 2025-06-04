@@ -15,7 +15,7 @@ import Features from "./pages/Features";
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.NODE_ENV === "production" ? "/dnd-helper" : undefined}>
+    <BrowserRouter>
       <div id="app">
         <Nav />
         <Routes>
