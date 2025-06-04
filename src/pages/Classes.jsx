@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
@@ -9,6 +10,7 @@ const Classes = () => {
   const [error, setError] = useState(null);
   const [selectedRace, setSelectedRace] = useState(null);
   const [raceDetail, setRaceDetail] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch list of classes
   useEffect(() => {
@@ -172,7 +174,7 @@ const Classes = () => {
           <li
             className="list__item"
             key={cls.index}
-            onClick={() => (window.location.href = `/classes/${cls.index}`)}>
+            onClick={() => navigate(`/classes/${cls.index}`)}>
             <span style={{ color: "inherit" }}>
               {cls.name}
             </span>

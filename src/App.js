@@ -19,7 +19,7 @@ function App() {
       <div id="app">
         <Nav />
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<Landing />} />
           <Route path="/spells" element={<SpellsList />} />
           <Route path="/spells/:spellIndex" element={<SpellDetails />} />
           <Route path="/monsters" element={<Monsters />} />
@@ -29,7 +29,6 @@ function App() {
           <Route path="/classes" element={<Classes />} />
           <Route path="/classes/:classIndex" element={<ClassDetail />} />
           <Route path="/features" element={<Features />} />
-          
         </Routes>
         <Footer />
       </div>
