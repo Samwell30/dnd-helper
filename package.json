@@ -2,7 +2,6 @@
   "name": "dnd-helper",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Samwell30.github.io/dnd-helper",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
