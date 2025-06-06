@@ -7,6 +7,7 @@ const Features = () => {
     const [error, setError] = useState(null);
     const [selectedFeature, setSelectedFeature] = useState(null);
     const [featureDetail, setFeatureDetail] = useState(null);
+    const [featureDetailsCache, setFeatureDetailsCache] = useState({});
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -24,6 +25,8 @@ const Features = () => {
         fetchFeatures();
     }, []);
 
+
+
     const handleSelect = async (feature) => {
         if (selectedFeature === feature.index) {
             setSelectedFeature(null);
@@ -32,16 +35,40 @@ const Features = () => {
         }
         setSelectedFeature(feature.index);
         setFeatureDetail(null);
+
+        // Check cache first
+        if (featureDetailsCache[feature.index]) {
+            setFeatureDetail(featureDetailsCache[feature.index]);
+            return;
+        }
+
         try {
             const { data } = await axios.get(`https://www.dnd5eapi.co/api/2014/features/${feature.index}`);
             setFeatureDetail(data);
+            setFeatureDetailsCache(prev => ({
+                ...prev,
+                [feature.index]: data
+            }));
         } catch {
-            setFeatureDetail({ name: feature.name, desc: ['Failed to load details.'] });
+            const fallback = { name: feature.name, desc: ['Failed to load details.'] };
+            setFeatureDetail(fallback);
+            setFeatureDetailsCache(prev => ({
+                ...prev,
+                [feature.index]: fallback
+            }));
         }
     };
 
     const filteredFeatures = features.filter(f => f.name.toLowerCase().includes(search.toLowerCase()));
-
+    const uniqueFeatures = [];
+    const seen = new Set();
+    for (const feature of filteredFeatures) {
+        const key = feature.name.toLowerCase();
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniqueFeatures.push(feature);
+        }
+    }
     return (
         <div className="section">
             <h1>Features</h1>
@@ -59,7 +86,7 @@ const Features = () => {
                 <p>Loading features...</p>
             ) : (
                 <ul className="list__items">
-                    {filteredFeatures.map((feature, idx) => (
+                    {uniqueFeatures.map((feature, idx) => (
                         <React.Fragment key={feature.index}>
                             <li
                                 className="list__item"

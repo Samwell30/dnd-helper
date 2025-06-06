@@ -11,6 +11,7 @@ import MagicItemList from "./pages/MagicItems";
 import Classes from "./pages/Classes";
 import ClassDetail from "./pages/ClassDetail";
 import Features from "./pages/Features";
+import Rules from "./pages/Rules";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/classes" element={<Classes />} />
           <Route path="/classes/:classIndex" element={<ClassDetail />} />
           <Route path="/features" element={<Features />} />
+          <Route path="/rules" element={<Rules />} />
           <Route path="*" element={<Landing />} />
         </Routes>
         <Footer />

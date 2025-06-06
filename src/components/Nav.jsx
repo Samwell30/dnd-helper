@@ -12,6 +12,7 @@ const Nav = () => {
             <li className="nav__item"><Link to="/magicItems">Magic Items</Link></li>
             <li className="nav__item"><Link to="/classes">Classes</Link></li>
             <li className="nav__item"><Link to="/features">Features</Link></li>
+            <li className="nav__item"><Link to="/rules">Rules</Link></li>
             {/* <li className="nav__item"><Link to="/about">About</Link></li> */}
         </ul>
     </nav>

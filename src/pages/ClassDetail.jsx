@@ -52,7 +52,13 @@ const ClassDetail = () => {
     if (!classData) return null;
 
     return (
-        <div className="section">
+        <div className="section" style={{ position: "relative" }}>
+            <button
+                style={{ position: "absolute", right: 0, top: 0, margin: 10 }}
+                onClick={() => navigate("/classes")}
+            >
+                Back to Classes
+            </button>
             <h1>{classData.name}</h1>
             <p>
                 <strong>Hit Die:</strong> d{classData.hit_die}
