@@ -1,59 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Rules = () => {
     const [sections, setSections] = useState([]);
-    const [selected, setSelected] = useState(null);
-    const [detail, setDetail] = useState(null);
     const [error, setError] = useState(null);
-    // Fetch all rule sections
+    const [loading, setLoading] = useState(false);
+    const [preview, setPreview] = useState({});
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+    const navigate = useNavigate();
+
     useEffect(() => {
         async function fetchSections() {
+            setLoading(true);
             try {
                 const { data } = await axios.get(
                     'https://www.dnd5eapi.co/api/rule-sections'
                 );
+                console.log('Sections API response:', data);
                 if (data && Array.isArray(data.results)) {
                     setSections(data.results);
+                    setError(null);
                 } else {
                     setSections([]);
                     setError('No rule sections found.');
                 }
             } catch (err) {
+                console.error('Error fetching sections:', err);
+                setSections([]);
                 setError('Failed to load rule sections.');
+            } finally {
+                setLoading(false);
             }
         }
         fetchSections();
     }, []);
-    // Fetch detail when a section is selected
-    useEffect(() => {
-        if (!selected) {
-            setDetail(null);
-            return;
-        }
-        async function fetchDetail() {
-            try {
-                let data;
-                try {
-                    ({ data } = await axios.get(
-                        `https://www.dnd5eapi.co/api/2014/rule-sections/${selected}`
-                    ));
-                } catch {
-                    ({ data } = await axios.get(
-                        `https://www.dnd5eapi.co/api/rule-sections/${selected}`
-                    ));
-                }
-                setDetail(data);
-            } catch (err) {
-                setDetail({ name: 'Error', desc: ['Failed to load details.'] });
+
+    // Fetch preview on hover
+    const handleMouseEnter = async (index) => {
+        setHoveredIndex(index);
+        if (preview[index]) return; // Already fetched
+        try {
+            const { data } = await axios.get(
+                `https://www.dnd5eapi.co/api/rule-sections/${index}`
+            );
+            let firstSentence = '';
+            if (Array.isArray(data.desc) && data.desc.length > 0) {
+                firstSentence = data.desc[0].split('. ')[0] + '.';
+            } else if (typeof data.desc === 'string') {
+                firstSentence = data.desc.split('. ')[0] + '.';
             }
+            setPreview((prev) => ({ ...prev, [index]: firstSentence }));
+        } catch (err) {
+            setPreview((prev) => ({ ...prev, [index]: 'No preview available.' }));
         }
-        fetchDetail();
-    }, [selected]);
+    };
+    const handleMouseLeave = () => setHoveredIndex(null);
 
     return (
         <div className="section">
             <h1>Rules</h1>
+            {loading && <p>Loading...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <ul className="list__items">
                 {sections.length === 0 && !error && (
@@ -65,23 +72,22 @@ const Rules = () => {
                         className="list__item"
                         style={{
                             cursor: 'pointer',
-                            fontWeight: selected === s.index ? 'bold' : 'normal',
-                            color: selected === s.index ? '#e66e53' : undefined,
                         }}
-                        onClick={() => setSelected(s.index)}
+                        onClick={() => navigate(`/rules/${s.index}`)}
+                        onMouseEnter={() => handleMouseEnter(s.index)}
+                        onMouseLeave={handleMouseLeave}
                     >
-                        {s.name}
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span style={{ fontWeight: 'bold' }}>{s.name}</span>
+                            {hoveredIndex === s.index && preview[s.index] && (
+                                <span style={{ color: '#666', fontSize: '0.95em', marginTop: 2 }}>
+                                    {preview[s.index]}
+                                </span>
+                            )}
+                        </div>
                     </li>
                 ))}
             </ul>
-            {detail && (
-                <div className="ability__score__detail" style={{ marginTop: 24 }}>
-                    <strong>{detail.name}</strong>
-                    {Array.isArray(detail.desc)
-                        ? detail.desc.map((p, i) => <p key={i}>{p}</p>)
-                        : detail.desc && <p>{detail.desc}</p>}
-                </div>
-            )}
         </div>
     );
 };

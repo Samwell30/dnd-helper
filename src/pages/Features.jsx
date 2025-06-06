@@ -82,6 +82,8 @@ const Features = () => {
             uniqueFeatures.push(feature);
         }
     }
+    uniqueFeatures.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+
     return (
         <div className="section">
             <h1>Features</h1>

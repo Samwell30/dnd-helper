@@ -12,6 +12,7 @@ import Classes from "./pages/Classes";
 import ClassDetail from "./pages/ClassDetail";
 import Features from "./pages/Features";
 import Rules from "./pages/Rules";
+import RuleDetail from "./pages/RuleDetail";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/classes/:classIndex" element={<ClassDetail />} />
           <Route path="/features" element={<Features />} />
           <Route path="/rules" element={<Rules />} />
+          <Route path="/rules/:index" element={<RuleDetail />} />
           <Route path="*" element={<Landing />} />
         </Routes>
         <Footer />
