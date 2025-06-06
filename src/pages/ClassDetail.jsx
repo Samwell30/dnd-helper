@@ -53,12 +53,6 @@ const ClassDetail = () => {
 
     return (
         <div className="section" style={{ position: "relative" }}>
-            <button
-                style={{ position: "absolute", right: 0, top: 0, margin: 10 }}
-                onClick={() => navigate("/classes")}
-            >
-                Back to Classes
-            </button>
             <h1>{classData.name}</h1>
             <p>
                 <strong>Hit Die:</strong> d{classData.hit_die}
@@ -188,7 +182,11 @@ const ClassDetail = () => {
                     )}
                 </div>
             )}
-            {/* Add more details as needed */}
+            <button className="btn__details"
+                onClick={() => navigate("/classes")}
+            >
+                Back to Classes
+            </button>
         </div>
     );
 };
