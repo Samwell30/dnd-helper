@@ -275,7 +275,7 @@ p {
   border-radius: 25px;
   font-size: 1.2rem;
   min-width: 95vw;
-  background: #ccc;
+  background: rgba(230, 110, 83, 0.13);
 }
 
 .btn__details {
@@ -303,10 +303,9 @@ p {
   margin-top: 10px;
   height: 100vh;
   text-align: center;
-  color: white;
   font-size: 24px;
   font-weight: bold;
-  background-color: #e66e53;
+  background-color: rgba(230, 110, 83, 0.13);
   border-radius: 8px;
 }
 

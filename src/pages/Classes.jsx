@@ -45,10 +45,8 @@ const Classes = () => {
     }
     fetchClasses();
 
-    // Fetch all races
     async function fetchRaces() {
       try {
-        // Try both endpoints for maximum compatibility
         let data;
         try {
           ({ data } = await axios.get(
@@ -76,7 +74,7 @@ const Classes = () => {
               left: 0,
               width: "100vw",
               height: "100vh",
-              background: "rgba(0,0,0,0.01)",
+              background: "rgba(0,0,0,0.3)",
               zIndex: 1000,
             }}
             onClick={() => {
