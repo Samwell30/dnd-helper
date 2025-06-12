@@ -79,6 +79,8 @@ const ClassFeatures = ({ classIndex }) => {
     return (
         <div className="section" >
             <h2 style={{ marginBottom: 16 }}>Class Features</h2>
+            {isLoading && <p>Loading...</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <ul className="list__items" style={{ width: "50vw", maxWidth: 750, minWidth: 320, margin: 0, padding: 0 }}>
                 {uniqueFeatures.map((feature, idx) => (
                     <React.Fragment key={feature.index}>

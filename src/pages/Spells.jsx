@@ -9,14 +9,13 @@ const SpellsList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  async function fetchSpells() {
-    setIsLoading(true);
-    const { data } = await axios.get("https://www.dnd5eapi.co/api/spells");
-    setSpells(data.results);
-    setIsLoading(false);
-  }
-
   useEffect(() => {
+    async function fetchSpells() {
+      setIsLoading(true);
+      const { data } = await axios.get("https://www.dnd5eapi.co/api/spells");
+      setSpells(data.results);
+      setIsLoading(false);
+    }
     fetchSpells();
   }, []);
 
