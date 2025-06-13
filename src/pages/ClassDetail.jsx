@@ -96,8 +96,8 @@ const ClassDetail = () => {
                   key={prof.index}
                   {...(isEquipment
                     ? {
-                        onClick: () => handleEquipmentProficiencyClick(prof),
-                      }
+                      onClick: () => handleEquipmentProficiencyClick(prof),
+                    }
                     : {})}
                 >
                   {prof.name}
@@ -201,6 +201,15 @@ const ClassDetail = () => {
           <p>
             <strong>Spellcasting Ability:</strong>{" "}
             {classData.spellcasting.spellcasting_ability?.name}
+            {classData.spellcasting && (
+              <button
+                style={{ marginLeft: 12 }}
+                className="btn__details"
+                onClick={() => navigate(`/classes/${classIndex}/spells`)}
+              >
+                View {classData.name} Spells
+              </button>
+            )}
           </p>
           {classData.spellcasting.info && (
             <ul className="list__items">

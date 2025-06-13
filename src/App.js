@@ -12,6 +12,8 @@ import Classes from "./pages/Classes";
 import ClassDetail from "./pages/ClassDetail";
 import Rules from "./pages/Rules";
 import RuleDetail from "./pages/RuleDetail";
+import ClassSpells from "./pages/ClassSpells";
+import Traits from "./pages/Traits";
 
 
 function App() {
@@ -28,8 +30,10 @@ function App() {
           <Route path="/magicItems" element={<MagicItemList />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="/classes/:classIndex" element={<ClassDetail />} />
+          <Route path="/classes/:classIndex/spells" element={<ClassSpells />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/rules/:index" element={<RuleDetail />} />
+          <Route path="/traits" element={<Traits />} />
           <Route path="*" element={<Landing />} />
         </Routes>
         <Footer />
