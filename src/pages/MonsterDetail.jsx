@@ -31,7 +31,8 @@ const MonsterDetail = () => {
 
   return (
     <div className="detail__page">
-      <h1>{monster.name} -- CR:{monster.challenge_rating}</h1>
+      <h1 style={{textAlign: "center", marginBottom:"10px"}}>{monster.name} -- CR:{monster.challenge_rating}</h1>
+
       <div className="details">
         <p>
           <strong>Size:</strong> {monster.size}

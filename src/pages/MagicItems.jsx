@@ -111,7 +111,7 @@ const MagicItemList = () => {
                 </li>
                 {expandedIndex === item.index && (
                   <li style={{ background: '#f9f9f9', padding: '8px 16px', borderLeft: '4px solid #bdbdbd' }}>
-                    <div className="equipment-detail">
+                    <div className="inline-detail">
                       {itemDetails[item.index] ? (
                         itemDetails[item.index].error ? (
                           <p style={{ color: "red" }}>{itemDetails[item.index].error}</p>

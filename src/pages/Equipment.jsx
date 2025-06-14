@@ -182,7 +182,7 @@ const EquipmentList = () => {
               {item.name}
               {expandedIndex === item.index && selectedEquipment && (
                 <div
-                  className="equipment-detail"
+                  className="inline-detail"
                   style={{ marginTop: "10px", fontSize: "0.9rem" }}
                 >
                   <p>

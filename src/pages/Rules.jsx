@@ -207,7 +207,7 @@ const Rules = () => {
     <div className="section">
       <h1>Rules</h1>
       <p>
-        Here you will see the list of rules, conditions, damage types that are
+        Here you will see the list of rules that are
         involved in DND.
       </p>
       {loading && <p>Loading...</p>}
@@ -219,7 +219,6 @@ const Rules = () => {
             key={s.index}
             className="list__item"
             style={{
-              cursor: "pointer",
             }}
             onClick={() => navigate(`/rules/${s.index}`)}
             onMouseEnter={() => handleMouseEnter(s.index)}
@@ -247,7 +246,6 @@ const Rules = () => {
             <li
               className="list__item"
               style={{
-                cursor: "pointer",
                 fontWeight: condOpen === cond.index ? "bold" : "normal",
               }}
               onClick={() => handleCondClick(cond)}
@@ -256,14 +254,8 @@ const Rules = () => {
             </li>
             {condOpen === cond.index && condDetail[cond.index] && (
               <div
-                style={{
-                  marginLeft: 20,
-                  marginBottom: 10,
-                  background: "#f9f9f9",
-                  borderRadius: 6,
-                  padding: 12,
-                  border: "1px solid #ddd",
-                }}
+                className="inline-detail"
+                  style={{ marginTop: "10px", fontSize: "0.9rem" }}
               >
                 {condDetail[cond.index].desc &&
                   condDetail[cond.index].desc.map((d, i) => <p key={i}>{d}</p>)}
@@ -290,14 +282,8 @@ const Rules = () => {
             </li>
             {damageOpen === dmg.index && damageDetail[dmg.index] && (
               <div
-                style={{
-                  marginLeft: 20,
-                  marginBottom: 10,
-                  background: "#f9f9f9",
-                  borderRadius: 6,
-                  padding: 12,
-                  border: "1px solid #ddd",
-                }}
+                className="inline-detail"
+                  style={{ marginTop: "10px", fontSize: "0.9rem" }}
               >
                 {damageDetail[dmg.index].desc &&
                   damageDetail[dmg.index].desc.map((d, i) => (
@@ -326,14 +312,8 @@ const Rules = () => {
             </li>
             {magicOpen === school.index && magicDetail[school.index] && (
               <div
-                style={{
-                  marginLeft: 20,
-                  marginBottom: 10,
-                  background: "#f9f9f9",
-                  borderRadius: 6,
-                  padding: 12,
-                  border: "1px solid #ddd",
-                }}
+                className="inline-detail"
+                  style={{ marginTop: "10px", fontSize: "0.9rem" }}
               >
                 {magicDetail[school.index].desc &&
                   (Array.isArray(magicDetail[school.index].desc) ? (
@@ -343,24 +323,6 @@ const Rules = () => {
                   ) : (
                     <p>{magicDetail[school.index].desc}</p>
                   ))}
-                {magicDetail[school.index].name && (
-                  <div>
-                    <strong>Name:</strong> {magicDetail[school.index].name}
-                  </div>
-                )}
-                {magicDetail[school.index].url && (
-                  <div>
-                    <a
-                      href={`https://www.dnd5eapi.co${
-                        magicDetail[school.index].url
-                      }`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      API Link
-                    </a>
-                  </div>
-                )}
               </div>
             )}
           </React.Fragment>
