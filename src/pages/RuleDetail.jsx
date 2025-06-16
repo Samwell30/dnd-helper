@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const RuleDetail = () => {
   const { index } = useParams();
@@ -44,9 +45,9 @@ const RuleDetail = () => {
             <em>No description available.</em>
           </p>
         )}
-        <button className="btn__details" onClick={() => navigate("/rules")} style={{ marginBottom: 16 }}>
-          &larr; Back to Rules
-        </button>
+          <Link to="/rules">
+            <button className="btn__details">Back to Rules</button>
+          </Link>
       </div>
     </div>
   );

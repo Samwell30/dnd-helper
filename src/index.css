@@ -22,6 +22,10 @@ body {
   flex: 1 0 auto;
 }
 
+a {
+margin: 0 auto;
+}
+
 #landing, .section, .detail__page {
   min-height: unset;
   flex: 1 0 auto;
