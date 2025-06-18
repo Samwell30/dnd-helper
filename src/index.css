@@ -345,19 +345,75 @@ p {
 
 .race-modal {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   max-height: 80vh;
   overflow-y: auto;
-  width: 90%;
+  width: 90vw;
   max-width: 500px;
   z-index: 1001;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
+
+@media (max-width: 800px) {
+  .race-modal {
+    width: 98vw !important;
+    max-width: 99vw !important;
+    min-width: 0 !important;
+    padding: 10px !important;
+    font-size: 1rem;
+    max-height: 90vh;
+  }
+}
+
+@media (max-width: 500px) {
+  .race-modal {
+    width: 99vw !important;
+    max-width: 99vw !important;
+    min-width: 0 !important;
+    padding: 6px !important;
+    font-size: 0.98rem;
+    max-height: 95vh;
+  }
+}
+
+/* Section headers for Rules.jsx */
+.section-header {
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.3em;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  max-width: 100%;
+  background: #e3e3ff;
+
+}
+.section-header--conditions {
+  background: #e3e3ff;
+  border-left: 6px solid #6c63ff;
+}
+.section-header--damage {
+  background: #ffe3e3;
+  border-left: 6px solid #ff6363;
+}
+.section-header--magic {
+  background: #e3ffe3;
+  border-left: 6px solid #63ff63;
+}
+
 
 footer {
   background-color: #333;
@@ -395,6 +451,7 @@ footer {
     max-width: 95vw;        
     margin: 0 auto;         
     border-radius: 10px;    
+    margin-top: 20px;
   }
   .nav__item {
     padding: 12px 0;
@@ -543,4 +600,3 @@ footer {
     gap: 8px;
   }
 }
-

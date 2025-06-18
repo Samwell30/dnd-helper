@@ -32,7 +32,6 @@ const Rules = () => {
         const { data } = await axios.get(
           "https://www.dnd5eapi.co/api/rule-sections"
         );
-        console.log("Sections API response:", data);
         if (data && Array.isArray(data.results)) {
           setSections(data.results);
           setError(null);
@@ -41,7 +40,6 @@ const Rules = () => {
           setError("No rule sections found.");
         }
       } catch (err) {
-        console.error("Error fetching sections:", err);
         setSections([]);
         setError("Failed to load rule sections.");
       } finally {
@@ -237,7 +235,7 @@ const Rules = () => {
           </li>
         ))}
       </ul>
-      <h1>Conditions</h1>
+      <h1 className="section-header section-header--conditions">Conditions</h1>
       {condLoading && <p>Loading conditions...</p>}
       {condError && <p style={{ color: "red" }}>{condError}</p>}
       <ul className="list__items">
@@ -255,7 +253,7 @@ const Rules = () => {
             {condOpen === cond.index && condDetail[cond.index] && (
               <div
                 className="inline-detail"
-                  style={{ marginTop: "10px", fontSize: "0.9rem" }}
+                style={{ marginTop: "10px", fontSize: "0.9rem" }}
               >
                 {condDetail[cond.index].desc &&
                   condDetail[cond.index].desc.map((d, i) => <p key={i}>{d}</p>)}
@@ -264,7 +262,7 @@ const Rules = () => {
           </React.Fragment>
         ))}
       </ul>
-      <h1>Damage Types</h1>
+      <h1 className="section-header section-header--damage">Damage Types</h1>
       {damageLoading && <p>Loading damage types...</p>}
       {damageError && <p style={{ color: "red" }}>{damageError}</p>}
       <ul className="list__items">
@@ -283,7 +281,7 @@ const Rules = () => {
             {damageOpen === dmg.index && damageDetail[dmg.index] && (
               <div
                 className="inline-detail"
-                  style={{ marginTop: "10px", fontSize: "0.9rem" }}
+                style={{ marginTop: "10px", fontSize: "0.9rem" }}
               >
                 {damageDetail[dmg.index].desc &&
                   damageDetail[dmg.index].desc.map((d, i) => (
@@ -294,7 +292,7 @@ const Rules = () => {
           </React.Fragment>
         ))}
       </ul>
-      <h1>Magic Schools</h1>
+      <h1 className="section-header section-header--magic">Magic Schools</h1>
       {magicLoading && <p>Loading magic schools...</p>}
       {magicError && <p style={{ color: "red" }}>{magicError}</p>}
       <ul className="list__items">
@@ -313,7 +311,7 @@ const Rules = () => {
             {magicOpen === school.index && magicDetail[school.index] && (
               <div
                 className="inline-detail"
-                  style={{ marginTop: "10px", fontSize: "0.9rem" }}
+                style={{ marginTop: "10px", fontSize: "0.9rem" }}
               >
                 {magicDetail[school.index].desc &&
                   (Array.isArray(magicDetail[school.index].desc) ? (

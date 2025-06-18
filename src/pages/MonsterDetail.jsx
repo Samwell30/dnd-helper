@@ -16,6 +16,10 @@ const MonsterDetail = () => {
     fetchMonster();
   }, [monsterIndex]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (!monster) {
     return <div className="loading__container">Loading...</div>; // Show a loading message while fetching data
   }
@@ -31,7 +35,7 @@ const MonsterDetail = () => {
 
   return (
     <div className="detail__page">
-      <h1 style={{textAlign: "center", marginBottom:"10px"}}>{monster.name} -- CR:{monster.challenge_rating}</h1>
+      <h1 style={{ textAlign: "center", marginBottom: "10px" }}>{monster.name} -- CR:{monster.challenge_rating}</h1>
 
       <div className="details">
         <p>

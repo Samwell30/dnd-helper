@@ -47,6 +47,10 @@ const ClassDetail = () => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [selectedAbilityScore]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleEquipmentProficiencyClick = (prof) => {
     navigate("/equipment");
   };

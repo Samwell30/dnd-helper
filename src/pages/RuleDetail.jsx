@@ -27,6 +27,10 @@ const RuleDetail = () => {
     fetchDetail();
   }, [index]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!detail) return null;
@@ -44,9 +48,9 @@ const RuleDetail = () => {
             <em>No description available.</em>
           </p>
         )}
-          <Link to="/rules">
-            <button className="btn__details">Back to Rules</button>
-          </Link>
+        <Link to="/rules">
+          <button className="btn__details">Back to Rules</button>
+        </Link>
       </div>
     </div>
   );

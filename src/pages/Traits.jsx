@@ -26,6 +26,12 @@ const Traits = () => {
   }, []);
 
   const handleTraitClick = (trait) => {
+    if (selectedTrait && selectedTrait.index === trait.index) {
+      setSelectedTrait(null);
+      setTraitDetail(null);
+      setDetailError(null);
+      return;
+    }
     setSelectedTrait(trait);
     setTraitDetail(null);
     setDetailError(null);
